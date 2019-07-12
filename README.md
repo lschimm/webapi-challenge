@@ -31,8 +31,8 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 - As access to request and response object and helps
   execute code
 
-- [ ] Describe a Resource?
-      -Memory?
+- [ ] Describe a Resource? - It's a lot of things. Whatever needs to be used
+      i.e. name, description, etc.
 
 - [ ] What can the API return to help clients know if a request was successful?
 - status codes and json messages/errors.

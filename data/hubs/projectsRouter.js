@@ -44,13 +44,13 @@ router.put("/:id", (req, res) => {
     .update(name, changes)
     .then(updated => {
       if (updated) {
-        res.status(200).json();
+        res.status(200).json({ message: "added, dude" });
       } else {
         res.status(404).json({ message: "can't find to update" });
       }
     })
     .catch(error => {
-      res.status(500).json(err);
+      res.status(500).json({ message: "something goofed" });
     });
 });
 //?
@@ -68,20 +68,5 @@ router.delete("/:id", (req, res) => {
 });
 
 //works
-
-//getProjectActions
-
-// router.get("/:id", async (req, res) => {
-//   try {
-//     const proj = await Projects.get(req.params.id);
-//     if (project) {
-//       res.status(200).json(proj);
-//     } else {
-//       res.status(404).json({ message: "project doesn't exist" });
-//     }
-//   } catch (error) {
-//     res.status(500).json({ error: "couldn't get by that id" });
-//   }
-// });
 
 module.exports = router;
