@@ -15,13 +15,17 @@ router.get("/", (req, res) => {
 });
 
 // get by id
-router.get("/:id", async (req, res) => {
-  try {
-    let user = await actions.get(req.user);
-    res.status(200).json(user);
-  } catch (err) {
-    res.status(400).json({ message: "error getting id" });
-  }
+router.get("/:id", (req, res) => {
+  const id = req.params.id;
+  // console.log("here\n", id);
+  actions
+    .get(id)
+    .then(projects => {
+      res.status(200).json({ projects });
+    })
+    .catch(error => {
+      res.status(500).json({ message: "id not found" });
+    });
 });
 
 //insert

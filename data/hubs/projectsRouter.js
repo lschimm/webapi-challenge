@@ -14,6 +14,20 @@ router.get("/", (req, res) => {
 });
 //works
 
+// get by id
+router.get("/:id", (req, res) => {
+  const id = req.params.id;
+  console.log("here\n", id);
+  projects
+    .get(id)
+    .then(projects => {
+      res.status(200).json({ projects });
+    })
+    .catch(error => {
+      res.status(500).json({ message: "id not found" });
+    });
+});
+
 // insert
 
 router.post("/:id", (req, res) => {
@@ -68,5 +82,17 @@ router.delete("/:id", (req, res) => {
 });
 
 //works
+
+// getProjectActions
+
+router.get("/this", (req, res) => {
+  projects.getProjectActions(req.params.id).then(maybe => {
+    if (actions) {
+      res.status(200).json({ actions });
+    } else {
+      res.status(404).json({ message: "no actions" });
+    }
+  });
+});
 
 module.exports = router;
