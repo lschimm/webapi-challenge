@@ -12,3 +12,20 @@ I need this code, just don't know where, perhaps should make some middleware, do
 
 Go code!
 */
+
+const express = require("express");
+const dbRouter = require("./data/dbConfig.js");
+const server = express();
+
+server.get("/", (req, res) => {
+  res.send(`
+      <h2>Here's hoping</h2>
+    `);
+});
+
+server.use("/api/db-router", dbRouter);
+
+const port = process.env.PORT || 4003;
+server.listen(port, () => {
+  console.log(`\n*** Server Running on http://localhost:${port} ***\n`);
+});
