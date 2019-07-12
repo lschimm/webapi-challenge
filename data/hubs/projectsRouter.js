@@ -33,20 +33,41 @@ router.post("/:id", (req, res) => {
       res.status(500).json(err);
     });
 });
-//works
-
-// router.post("/", async (req, res) => {
-//   try {
-//     const addProj = await projects.insert(req.body);
-//     res.status(200).json({ message: "added" });
-//   } catch (err) {
-//     res.status(500).json({ message: "not added." });
-//   }
-// });
+// works
 
 // update
+router.put("/:id", (req, res) => {
+  const name = req.params.id;
+  const changes = req.body;
+
+  projects
+    .update(name, changes)
+    .then(updated => {
+      if (updated) {
+        res.status(200).json();
+      } else {
+        res.status(404).json({ message: "can't find to update" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json(err);
+    });
+});
+//?
 
 // remove
+
+router.delete("/:id", (req, res) => {
+  projects.remove(req.params.id).then(deleted => {
+    if (deleted > 0) {
+      res.status(200).json({ message: `deleted ${deleted} record` });
+    } else {
+      res.status(404).json({ message: "could not delete" });
+    }
+  });
+});
+
+//works
 
 //getProjectActions
 
