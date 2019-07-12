@@ -17,13 +17,13 @@ router.get("/", (req, res) => {
 //insert
 router.post("/:id", (req, res) => {
   const actionInfo = req.body;
-  const { name, description, completed } = req.body;
+  const { postid, name, description, completed } = req.body;
 
   actions
     .insert(actionInfo)
     .then(hub => {
-      if (!name) {
-        res.status(400).json({ message: "provide name, description, etc" });
+      if (!postid) {
+        res.status(400).json({ message: "provide id, etc" });
       } else {
         res.status(201).json(hub);
       }
@@ -31,6 +31,18 @@ router.post("/:id", (req, res) => {
     .catch(error => {
       res.status(500).json(err);
     });
+});
+
+// remove
+
+router.delete("/:id", (req, res) => {
+  actions.remove(req.params.id).then(deleted => {
+    if (deleted > 0) {
+      res.status(200).json({ message: `deleted ${deleted} record` });
+    } else {
+      res.status(404).json({ message: "could not delete" });
+    }
+  });
 });
 
 module.exports = router;
