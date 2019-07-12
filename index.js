@@ -13,81 +13,18 @@ I need this code, just don't know where, perhaps should make some middleware, do
 Go code!
 */
 
-const express = require("express");
-const data = require("./data/helpers/projectModel.js");
-const server = express();
-server.use(express.json()); // << to parse JSON in POST
+// const dotenv = require("dotenv");
+// dotenv.config();
 
-server.get("/api", (req, res) => {
-  res.send(`
-      <h2>Here's hoping</h2>
-    `);
-});
-
-// server.use("/api", dbRouter);
+// const server = require("./server.js");
 
 // const port = process.env.PORT || 4003;
 // server.listen(port, () => {
 //   console.log(`\n*** Server Running on http://localhost:${port} ***\n`);
 // });
 
-// R GET
+const server = require("./server");
 
-// server.get("/data", (req, res) => {
-//   data
-//     .find()
-//     .then(id => {
-//       res.status(200).json({ id });
-//     })
-//     .catch(error => {
-//       res.status(500).json({ message: "couldn't get" });
-//     });
-// });
-
-server.get("/data", (req, res) => {
-  data
-    .find()
-    .then(data => {
-      res.status(200).json({ data });
-    })
-    .catch(error => {
-      res.status(500).json({ error });
-    });
+server.listen(4003, () => {
+  console.log("\n*** Server Running on http://localhost:4003 ***\n");
 });
-
-// server.get("/data", async (req, res) => {
-//   try {
-//     const db = await data.get(req.query);
-//     res.status(200).json(db);
-//   } catch (error) {
-//     res.status(500).json({ message: "error from get" });
-//   }
-// });
-
-// R getProjectActions
-
-// C INSERT
-
-// U UPDATE
-
-// D REMOVE
-
-server.delete("/api/users/:id", (req, res) => {
-  data
-    .remove(req.params.id)
-    .then(deleted => {
-      if (deleted && deleted > 0) {
-        res.status(200).json({ message: "user deleted" });
-      } else {
-        res
-          .status(404)
-          .json({ message: "The user with the specified ID does not exist." });
-      }
-    })
-    .catch(error => {
-      res.status(500).json({ message: "The user could not be removed" });
-    });
-});
-
-const port = 4003;
-server.listen(port, () => console.log(`running on port ${port}`));
