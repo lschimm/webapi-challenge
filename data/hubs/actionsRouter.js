@@ -33,6 +33,25 @@ router.post("/:id", (req, res) => {
     });
 });
 
+//update
+router.put("/:id", (req, res) => {
+  const action = req.params.id;
+  const changes = req.body;
+
+  projects
+    .update(action, changes)
+    .then(updated => {
+      if (updated) {
+        res.status(200).json();
+      } else {
+        res.status(404).json({ message: "can't find to update" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json(err);
+    });
+});
+
 // remove
 
 router.delete("/:id", (req, res) => {
